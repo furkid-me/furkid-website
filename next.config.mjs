@@ -5,7 +5,7 @@ const nextConfig = {
       beforeFiles: [
         {
           source: '/vet-guide',
-          destination: 'https://furkid-vet-guide.vercel.app/vet-guide/',
+          destination: 'https://furkid-vet-guide.vercel.app/vet-guide',
         },
         {
           source: '/vet-guide/:path*',
