@@ -1,0 +1,41 @@
+name: Import Learn data
+on:
+  push:
+    branches: [feat/learn-data-migration]
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  import:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: feat/learn-data-migration
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Import and validate legacy Learn data
+        run: |
+          python - <<'PY'
+          import json,re,urllib.request,pathlib
+          url='https://jovial-liger-85838f.netlify.app/'
+          html=urllib.request.urlopen(url,timeout=30).read().decode('utf-8')
+          m=re.search(r'const\s+DATA\s*=\s*(\{.*?\});\s*(?:const|let|var|function)',html,re.S)
+          if not m: raise SystemExit('DATA not found')
+          data=json.loads(m.group(1))
+          assert len(data['courses'])==108, len(data['courses'])
+          assert len(data['books'])==299, len(data['books'])
+          assert len(data['catOrder'])==6, len(data['catOrder'])
+          out='export const learnData = '+json.dumps(data,ensure_ascii=False,separators=(',',':'))+';\n'
+          pathlib.Path('app/learn/learnData.js').write_text(out,encoding='utf-8')
+          print('validated:',len(data['courses']),len(data['books']),len(data['catOrder']))
+          PY
+      - name: Commit imported data
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add app/learn/learnData.js
+          git diff --cached --quiet && exit 0
+          git commit -m 'Learn: migrate 407 legacy resources into repository'
+          git push origin HEAD:feat/learn-data-migration
