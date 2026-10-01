@@ -1,0 +1,1 @@
+export default function sitemap(){return ["","/care","/live","/support","/learn","/vet-guide"].map(p=>({url:`https://furkid.me${p}`,lastModified:new Date(),changeFrequency:p?"weekly":"daily",priority:p?0.8:1}))}
