@@ -1,0 +1,31 @@
+# FURKID.ME
+
+> 和毛孩一起，把生活過好。 Better Life, Together.
+
+FURKID.ME 是以人與毛孩共同生活為核心的照護與生活平台。內容涵蓋寵物照護、健康與醫療資訊、行為、人寵關係、生活場景、專業服務與學習資源。
+
+## Primary sections
+
+- https://furkid.me/care — 照護：健康、醫療、行為、急救與生命階段
+- https://furkid.me/live — 一起生活：食、住、行、旅行、育樂與寵物友善生活
+- https://furkid.me/support — 找服務：目前包含雙北到府寵物保姆服務
+- https://furkid.me/learn — 學習：飼主教育、專業照護培訓、課程與工具
+- https://furkid.me/vet-guide — Vet Guide：把專業獸醫指南整理成飼主可理解、可採取下一步的內容
+
+## Related product
+
+- https://food.vastet.co — VASTET：以資料協助寵物食品、成分、品牌、營養、召回與法規資訊的理解與選擇。VASTET 與 FURKID.ME 分工獨立，FURKID.ME 聚焦共同生活與照護，VASTET 聚焦產品決策資料。
+
+## Editorial principles
+
+- 重要知識盡可能回到可追溯的專業指南、機構與資料來源。
+- 專業資訊應轉化成一般飼主能理解與行動的內容。
+- 醫療與健康內容協助理解、觀察與就醫溝通，不取代獸醫診療。
+- 不以資訊量為目標；優先提供可信任的判斷脈絡與下一步。
+
+## Brand
+
+FURKID.ME
+Better Life, Together.
+人與毛孩共同生活的照護與生活平台
+Contact: wind@furkid.me
