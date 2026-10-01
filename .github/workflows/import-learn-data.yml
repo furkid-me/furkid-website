@@ -39,3 +39,4 @@ jobs:
           git diff --cached --quiet && exit 0
           git commit -m 'Learn: migrate 407 legacy resources into repository'
           git push origin HEAD:feat/learn-data-migration
+# one-time migration workflow; remove after verified import
