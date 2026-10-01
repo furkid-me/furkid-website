@@ -1,0 +1,1 @@
+export default function manifest(){return {name:"FURKID.ME",short_name:"FURKID",description:"人與毛孩共同生活的照護與生活平台",start_url:"/",display:"standalone",background_color:"#F7F0E5",theme_color:"#EA830C",lang:"zh-Hant-TW",icons:[{src:"/icon.svg",sizes:"any",type:"image/svg+xml"}]}}
