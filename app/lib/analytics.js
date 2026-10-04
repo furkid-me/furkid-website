@@ -1,13 +1,20 @@
 /**
- * GA4 event names reserved for the site's future conversion tracking.
- * Add the corresponding calls only when those interactions exist in the UI.
+ * Production analytics event map for FURKID.ME.
+ * Keep event names stable so GA4 reports and conversions remain comparable over time.
  */
 export const ANALYTICS_EVENTS = Object.freeze({
-  NEWSLETTER_SIGNUP: "newsletter_signup",
-  VET_GUIDE_VIEW: "vet_guide_view",
-  LEARN_VIEW: "learn_view",
-  SUPPORT_CLICK: "support_click",
-  PORTALY_CHECKOUT_CLICK: "portaly_checkout_click",
+  // Primary conversions
+  PET_PARENT_SIGNUP: "pet_parent_signup",
+  PROFESSIONAL_NEWSLETTER_SIGNUP: "professional_newsletter_signup",
+
+  // Secondary conversions / engagement
+  VET_GUIDE_ENGAGEMENT: "vet_guide_engagement",
+  LEARN_RESOURCE_ENGAGEMENT: "learn_resource_engagement",
+  SUPPORT_INQUIRY: "support_inquiry",
+  PRODUCT_CHECKOUT_CLICK: "product_checkout_click",
+
+  // Generic navigation measurement
+  OUTBOUND_CLICK: "outbound_click",
 });
 
 let configuredMeasurementId;
