@@ -19,7 +19,9 @@ const nextConfig = {
   },
   async rewrites() {
     return {
-      beforeFiles: [
+      // Local files/routes win first (notably /vet-guide/sitemap.xml),
+      // then the remaining Vet Guide paths are proxied to the guide project.
+      afterFiles: [
         {
           source: '/vet-guide',
           destination: 'https://furkid-vet-guide.vercel.app/vet-guide',
