@@ -1,0 +1,77 @@
+name: Production Smoke QA
+
+on:
+  push:
+    paths:
+      - '.github/workflows/production-smoke.yml'
+  schedule:
+    - cron: '17 1 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - name: Check critical public routes
+        shell: bash
+        run: |
+          set -euo pipefail
+          for url in \
+            https://furkid.me/ \
+            https://furkid.me/support \
+            https://furkid.me/learn \
+            https://furkid.me/contact \
+            https://furkid.me/privacy \
+            https://furkid.me/vet-guide \
+            https://furkid.me/sitemap.xml \
+            https://furkid.me/vet-guide/sitemap.xml \
+            https://furkid.me/robots.txt; do
+            code="$(curl -L -sS -o /tmp/body -w '%{http_code}' --max-time 20 "$url")"
+            test "$code" = "200" || { echo "$url returned $code"; exit 1; }
+            echo "PASS $code $url"
+          done
+
+      - name: Verify canonical host redirects
+        shell: bash
+        run: |
+          set -euo pipefail
+          www_location="$(curl -sSI --max-time 20 https://www.furkid.me/ | tr -d '\r' | awk 'tolower($1)=="location:" {print $2; exit}')"
+          case "$www_location" in
+            https://furkid.me/*|https://furkid.me) ;;
+            *) echo "Unexpected www redirect: $www_location"; exit 1;;
+          esac
+          http_location="$(curl -sSI --max-time 20 http://furkid.me/ | tr -d '\r' | awk 'tolower($1)=="location:" {print $2; exit}')"
+          case "$http_location" in
+            https://furkid.me/*|https://furkid.me) ;;
+            *) echo "Unexpected HTTP redirect: $http_location"; exit 1;;
+          esac
+
+      - name: Verify 404 and index controls
+        shell: bash
+        run: |
+          set -euo pipefail
+          code="$(curl -sS -o /tmp/notfound -w '%{http_code}' --max-time 20 https://furkid.me/__launch_smoke_missing__)"
+          test "$code" = "404" || { echo "404 route returned $code"; exit 1; }
+          grep -qi 'noindex' /tmp/notfound || { echo '404 missing noindex'; exit 1; }
+          curl -sS --max-time 20 https://furkid.me/newsletter/thanks -o /tmp/thanks
+          grep -qi 'noindex' /tmp/thanks || { echo 'Newsletter thanks page missing noindex'; exit 1; }
+
+      - name: Verify core canonical tags
+        shell: bash
+        run: |
+          set -euo pipefail
+          check_canonical() {
+            local url="$1" expected="$2"
+            curl -sS --max-time 20 "$url" -o /tmp/page
+            grep -Fqi "rel=\"canonical\" href=\"$expected\"" /tmp/page || {
+              echo "Canonical mismatch: $url expected $expected"; exit 1;
+            }
+          }
+          check_canonical https://furkid.me/ https://furkid.me
+          check_canonical https://furkid.me/support https://furkid.me/support
+          check_canonical https://furkid.me/learn https://furkid.me/learn
+          check_canonical https://furkid.me/vet-guide https://furkid.me/vet-guide
