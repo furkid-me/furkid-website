@@ -1,0 +1,29 @@
+name: Website Security Baseline
+
+on:
+  push:
+    paths:
+      - 'package.json'
+      - '.github/workflows/security-baseline.yml'
+  schedule:
+    - cron: '23 2 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  dependency-audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: 'npm'
+          cache-dependency-path: package.json
+      - name: Resolve production dependency graph
+        run: npm install --package-lock-only --ignore-scripts --no-fund
+      - name: Audit high and critical production vulnerabilities
+        run: npm audit --omit=dev --audit-level=high
