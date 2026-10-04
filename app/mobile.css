@@ -1,0 +1,66 @@
+/* Mobile navigation and touch-target QA overrides. */
+@media (max-width: 800px) {
+  .nav {
+    height: auto;
+    min-height: 72px;
+    flex-wrap: wrap;
+    gap: 8px 12px;
+    padding-top: 12px;
+    padding-bottom: 10px;
+  }
+
+  .nav nav {
+    display: flex;
+    order: 3;
+    width: 100%;
+    gap: 8px;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding: 2px 0 4px;
+  }
+
+  .nav nav::-webkit-scrollbar {
+    display: none;
+  }
+
+  .nav nav a {
+    flex: 0 0 auto;
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    padding: 0 11px;
+    border-radius: 999px;
+    background: #efe3d4;
+    white-space: nowrap;
+  }
+
+  .nav .pill {
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .actions .textlink {
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .nav .pill {
+    display: none;
+  }
+
+  .nav {
+    gap: 6px;
+  }
+
+  .nav nav a {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+}
