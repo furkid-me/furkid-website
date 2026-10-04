@@ -11,25 +11,25 @@ export default function ConversionEvent({ eventName, eventParams = {}, sessionKe
     if (storageKey && window.sessionStorage.getItem(storageKey)) return;
 
     let stopped = false;
-    let attempts = 0;
-    const maxAttempts = 40; // ~10 seconds at 250 ms intervals
+    let timer;
+    const startedAt = Date.now();
+    const retryWindowMs = 120000;
 
     const send = () => {
       if (stopped) return;
-      attempts += 1;
 
-      // GoogleAnalytics initializes after the GA script is ready. Conversion
-      // pages can mount before that callback fires, so retry instead of
-      // silently dropping the event. Only mark the session after a successful
-      // handoff to gtag.
+      // Analytics is consent-gated. A visitor may land on a conversion page
+      // before choosing an analytics preference, so keep the conversion alive
+      // long enough for an explicit grant instead of dropping it after 10s.
+      // Only mark the session after a successful handoff to gtag.
       if (trackEvent(eventName, eventParams)) {
         if (storageKey) window.sessionStorage.setItem(storageKey, "1");
         stopped = true;
         return;
       }
 
-      if (attempts < maxAttempts) {
-        window.setTimeout(send, 250);
+      if (Date.now() - startedAt < retryWindowMs) {
+        timer = window.setTimeout(send, 250);
       }
     };
 
@@ -37,6 +37,7 @@ export default function ConversionEvent({ eventName, eventParams = {}, sessionKe
 
     return () => {
       stopped = true;
+      if (timer) window.clearTimeout(timer);
     };
   }, [eventName, sessionKey]);
 
