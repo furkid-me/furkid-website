@@ -2,7 +2,6 @@ import "./globals.css";
 import "./mobile.css";
 import "./a11y.css";
 import GoogleAnalytics from "./components/GoogleAnalytics";
-import { SpeedInsights } from "@vercel/speed-insights/next";
 
 export const metadata={
  metadataBase:new URL("https://furkid.me"),
@@ -17,4 +16,4 @@ export const metadata={
  icons:{icon:"/icon.svg"},manifest:"/manifest.webmanifest",
  robots:{index:true,follow:true,"max-image-preview":"large","max-snippet":-1,"max-video-preview":-1}
 };
-export default function RootLayout({children}){const graph={"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://furkid.me/#organization","name":"FURKID.ME","url":"https://furkid.me","description":"人與毛孩共同生活的照護與生活平台","email":"wind@furkid.me"},{"@type":"WebSite","@id":"https://furkid.me/#website","url":"https://furkid.me","name":"FURKID.ME","description":"從照護、健康、行為到生活、學習與專業服務，陪伴人與毛孩共同生活。","inLanguage":"zh-Hant-TW","publisher":{"@id":"https://furkid.me/#organization"},"about":[{"@type":"Thing","name":"寵物照護"},{"@type":"Thing","name":"人寵共同生活"},{"@type":"Thing","name":"寵物健康教育"}]}]};return <html lang="zh-Hant-TW"><body><a className="skip-link" href="#main-content">跳到主要內容</a><div id="main-content" tabIndex="-1">{children}</div><GoogleAnalytics/><SpeedInsights/><script type="application/ld+json" dangerouslySetInnerHTML={{__html:JSON.stringify(graph)}}/></body></html>}
+export default function RootLayout({children}){const graph={"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://furkid.me/#organization","name":"FURKID.ME","url":"https://furkid.me","description":"人與毛孩共同生活的照護與生活平台","email":"wind@furkid.me"},{"@type":"WebSite","@id":"https://furkid.me/#website","url":"https://furkid.me","name":"FURKID.ME","description":"從照護、健康、行為到生活、學習與專業服務，陪伴人與毛孩共同生活。","inLanguage":"zh-Hant-TW","publisher":{"@id":"https://furkid.me/#organization"},"about":[{"@type":"Thing","name":"寵物照護"},{"@type":"Thing","name":"人寵共同生活"},{"@type":"Thing","name":"寵物健康教育"}]}]};return <html lang="zh-Hant-TW"><body><a className="skip-link" href="#main-content">跳到主要內容</a><div id="main-content" tabIndex="-1">{children}</div><GoogleAnalytics/><script type="application/ld+json" dangerouslySetInnerHTML={{__html:JSON.stringify(graph)}}/></body></html>}
