@@ -1,5 +1,6 @@
 import "./globals.css";
 import "./mobile.css";
+import "./a11y.css";
 import GoogleAnalytics from "./components/GoogleAnalytics";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 
