@@ -43,7 +43,14 @@ export function initializeAnalytics(measurementId) {
 
 export function trackEvent(eventName, parameters = {}) {
   const gtag = getGtag();
-  if (!gtag || !configuredMeasurementId) return;
+  if (!gtag || !configuredMeasurementId) return false;
 
-  gtag("event", eventName, parameters);
+  // Explicitly target the production stream and prefer beacon transport so
+  // events survive same-tab navigation away from the current document.
+  gtag("event", eventName, {
+    send_to: configuredMeasurementId,
+    transport_type: "beacon",
+    ...parameters,
+  });
+  return true;
 }
