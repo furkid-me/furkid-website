@@ -1,0 +1,69 @@
+/* Accessibility baseline: contrast, keyboard focus, touch targets, reduced motion. */
+:root {
+  --furkid-orange-text: #A65300;
+  --furkid-focus: #1C1815;
+}
+
+/* Keep #EA830C as the brand accent/fill; use a darker orange for text on light surfaces. */
+.brand span,
+.eyebrow,
+.section-head > span,
+.vastet span,
+.newsletter span,
+.section-hero > span,
+.trust-title > span,
+.sitter-copy .tag,
+.service-hero > div > span,
+.service-cta span,
+.trust-grid b,
+.paper-top {
+  color: var(--furkid-orange-text);
+}
+
+.hero h1 em {
+  color: var(--furkid-orange-text);
+}
+
+/* Cocoa on the original brand orange passes normal-text contrast while preserving the brand fill. */
+.primary {
+  color: #3D2B21 !important;
+}
+
+.need:hover {
+  color: #3D2B21;
+}
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+[tabindex]:focus-visible {
+  outline: 3px solid var(--furkid-focus);
+  outline-offset: 3px;
+}
+
+.feature a:focus-visible,
+.site-footer a:focus-visible,
+.service-scope a:focus-visible {
+  outline-color: #F7BC08;
+}
+
+.footer-grid a {
+  min-height: 24px;
+  display: inline-flex;
+  align-items: center;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
