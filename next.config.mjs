@@ -1,5 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  // Keep the public Vet Guide canonical URL format slashless.
+  trailingSlash: false,
   async rewrites() {
     return {
       beforeFiles: [
