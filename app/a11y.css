@@ -4,6 +4,25 @@
   --furkid-focus: #1C1815;
 }
 
+.skip-link {
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  z-index: 9999;
+  transform: translateY(-180%);
+  background: #FFFAF3;
+  color: #3D2B21;
+  border: 2px solid #3D2B21;
+  border-radius: 4px;
+  padding: 10px 14px;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.skip-link:focus {
+  transform: translateY(0);
+}
+
 /* Keep #EA830C as the brand accent/fill; use a darker orange for text on light surfaces. */
 .brand span,
 .eyebrow,
